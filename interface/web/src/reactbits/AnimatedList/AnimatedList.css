@@ -1,0 +1,65 @@
+.scroll-list-container {
+  position: relative;
+  width: 100%;
+}
+
+.scroll-list {
+  display: grid;
+  gap: 2px;
+  overflow-y: auto;
+  outline: none;
+}
+
+.scroll-list:focus-visible {
+  border-radius: 12px;
+  box-shadow: 0 0 0 2px color-mix(in srgb, #2a78d6 40%, transparent);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.item {
+  padding: 11px 12px;
+  border-radius: 12px;
+  background: transparent;
+  transition: background-color 160ms ease;
+}
+
+.item.cliquable {
+  cursor: pointer;
+}
+
+.item.selected {
+  background: #f5f5f7;
+}
+
+.item-text {
+  margin: 0;
+}
+
+.top-gradient,
+.bottom-gradient {
+  position: absolute;
+  right: 0;
+  left: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.top-gradient {
+  top: 0;
+  height: 40px;
+  background: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0));
+}
+
+.bottom-gradient {
+  bottom: 0;
+  height: 64px;
+  background: linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0));
+}

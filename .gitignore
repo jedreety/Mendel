@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+data/raw/*
+data/prepared/*
+runs/*
+!data/raw/.gitkeep
+!data/prepared/.gitkeep
+!runs/.gitkeep
+.env.*
+!.env.example
+secrets/
+interface/etat/
+interface/web/node_modules/
+interface/web/dist/

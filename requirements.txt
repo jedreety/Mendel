@@ -1,0 +1,20 @@
+# Runtime. Le moteur et les modules n'utilisent que la bibliotheque standard.
+#
+# modules/ ne depend que des types du domaine et des classes
+# de base. Toute ligne ajoutee ici ne doit donc etre importee que depuis
+# adapters/, scripts/ ou evolution/, jamais depuis modules/ ni engine/.
+#
+# Bot evolutif, importe depuis evolution/ seulement. Version figee :
+# les resultats d'un run dependent des noyaux de PyTorch. Roue CUDA 13.0 :
+#   python -m pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cu130
+torch==2.14.0
+#
+# Decommenter au moment ou l'adapter correspondant est ecrit :
+#
+# pandas          # adapters/data + rapports
+# pyarrow         # stockage parquet des donnees preparees
+# ccxt            # adapters/broker, etape 2
+# python-dotenv   # cles API hors du code
+#
+# Le lieu d'execution retenu doit savoir poser des ordres conditionnels
+# de protection sur le spot.

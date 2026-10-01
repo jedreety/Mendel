@@ -1,0 +1,65 @@
+# Configuration du bot evolutif.
+# Chaque parametre figure ici : le code n'a aucune valeur par defaut cachee.
+# Un run copie ce fichier dans son dossier et le relit a la reprise.
+
+# --- Donnees et decoupage ---
+donnees = "data/prepared/BTCUSDT-1h.csv"
+# Debut de chaque bloc, en date UTC d'ouverture des barres. Un bloc s'arrete la ou commence le
+# prechauffage du bloc suivant : ce mois de tampon n'est note par aucun bloc.
+debut_entrainement = 2020-01-01
+debut_validation = 2024-01-01
+debut_test = 2025-01-01
+fenetres_par_lot = 4
+duree_fenetre_jours = 90
+prechauffage_jours = 30
+renouvellement_lot = 20          # generations
+
+# --- Couts et lieu d'execution : Binance spot BTCUSDT ---
+capital_initial = 1000           # USDT
+frais_entrainement = [0.0010, 0.0015]       # par cote, tire par fenetre
+glissement_entrainement = [0.0005, 0.0010]  # par cote, tire par fenetre
+frais_reference = 0.0010         # validation et test
+glissement_reference = 0.0005    # validation et test
+pas_de_prix = 0.01
+pas_de_quantite = 0.00001        # BTC
+notionnel_minimum = 5            # USDT
+
+# --- Bot ---
+taille_cachee = 64
+canaux_modules = 8               # les signaux des 80 modules, resumes en autant d'entrees du reseau
+duree_max_barres = 240
+adaptation_en_vie = true
+
+# --- Evolution ---
+population = 10240               # multiple de 256 : le paquet de la GPU est plein
+nb_parents = 5
+seuil_distinction = 0.90
+candidats_examines = 200
+sigma_initial_reseau = 0.005
+sigma_initial_autres = 0.05
+amplitude_marge = 4              # chaque amplitude s'adapte entre sa valeur initiale divisee et multipliee par ce facteur
+# Chaque naissance tire la force de l'enfant, puis l'ampleur de chacun de ses genes, entre ces bornes, de facon
+# log-uniforme : le pas d'un gene vaut l'amplitude de son groupe x force x ampleur x N(0, 1).
+mutation_enfant = [0.1, 10]      # certains enfants changent a peine, d'autres beaucoup
+mutation_gene = [0.001, 4]       # dans un enfant, la plupart des genes bougent tres peu, quelques-uns sautent
+proba_categoriel = 0.02
+graine_maitresse = 20260925
+
+# --- Notation ---
+# Note d'une fenetre : croissance du capital en logarithme, moins penalite_chute fois le carre de sa pire chute
+# (en logarithme). Une chute de 10 % efface ainsi 5,5 % de croissance, une chute de 20 % en efface 25 %.
+penalite_chute = 5
+agregation = { moyenne = 0.7, minimum = 0.3 }
+trades_preuve = 10               # par fenetre : un gain appuye par autant de trades ne compte qu'a moitie
+trades_minimum = 5               # par fenetre, en moyenne : en dessous, la penalite d'inactivite s'applique
+penalite_inactivite = 0.10       # retiree en entier a un bot qui ne trade pas
+seuil_ruine = 0.10               # fraction du capital initial : un trimestre passe dessous est marque ruine
+population_reference = 10000     # bots tires au hasard, pour situer la note de test du champion
+
+# --- Execution sur GPU ---
+memoire_gpu_max = 0.60           # fraction de la memoire totale de la GPU
+
+# --- Arret et rejeu ---
+stagnation_max = 100             # generations sans progres du Pantheon avant l'arret ; 0 le desactive
+generations_max = 0              # 0 : pas de limite, arret par Ctrl+C
+tolerance_rejeu = 0.001          # fraction du capital initial

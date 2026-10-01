@@ -1,0 +1,12 @@
+.tilted-card-figure {
+  position: relative;
+  margin: 0;
+  perspective: 900px;
+}
+
+.tilted-card-inner {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
