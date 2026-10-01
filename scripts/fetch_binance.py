@@ -50,9 +50,10 @@ def main() -> None:
     raw_dir = ROOT / "data" / "raw" / "binance"
     raw_dir.mkdir(exist_ok=True)
     target = ROOT / "data" / "prepared" / f"{args.symbol}-{args.interval}.csv"
+    draft = target.with_suffix(".part")  # renomme une fois complet : jamais de fichier tronque pris pour un marche
     width = timedelta(**{UNITS[args.interval[-1]]: int(args.interval[:-1])})
     previous = None
-    with target.open("w", encoding="utf-8", newline="") as out:
+    with draft.open("w", encoding="utf-8", newline="") as out:
         writer = csv.writer(out)
         writer.writerow(["time", "open", "high", "low", "close", "volume"])
         for month in months(args.start, args.end):
@@ -71,6 +72,7 @@ def main() -> None:
                         raise ValueError(f"{name}: deux barres pour la cloture {time}")
                     previous = time
                     writer.writerow([time.isoformat(), *row[1:6]])
+    draft.replace(target)
     print(target)
 
 

@@ -5,8 +5,10 @@
 # adapters/, scripts/ ou evolution/, jamais depuis modules/ ni engine/.
 #
 # Bot evolutif, importe depuis evolution/ seulement. Version figee :
-# les resultats d'un run dependent des noyaux de PyTorch. Roue CUDA 13.0 :
+# les resultats d'un run dependent des noyaux de PyTorch. Roue CUDA 13.0, la reference :
 #   python -m pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cu130
+# demarrer.ps1 prend la roue CUDA 12.6 (whl/cu126) pour une GPU anterieure aux RTX 20xx ou un
+# pilote NVIDIA anterieur a la 580, et la roue sans CUDA (whl/cpu) sans GPU NVIDIA.
 torch==2.14.0
 #
 # Decommenter au moment ou l'adapter correspondant est ecrit :

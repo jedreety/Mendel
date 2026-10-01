@@ -13,4 +13,3 @@ runs/*
 secrets/
 interface/etat/
 interface/web/node_modules/
-interface/web/dist/
