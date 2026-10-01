@@ -117,7 +117,7 @@ function Barre({ route }) {
           <Icone nom="graphique" taille={18} epaisseur={2.2} />
         </span>
         <span>
-          <strong>Bot évolutif</strong>
+          <strong>Mendel</strong>
           <small>entraînement sur GPU</small>
         </span>
       </a>
@@ -179,7 +179,7 @@ export default function App() {
     window.scrollTo(0, 0);
   }, [route.section, route.page, route.bot]);
   useEffect(() => {
-    document.title = [...titre(route, runs), 'Bot évolutif'].filter(Boolean).join(' · ');
+    document.title = [...titre(route, runs), 'Mendel'].filter(Boolean).join(' · ');
   });
   useEffect(() => {
     const precharger = () => Object.values(charger).forEach(f => f().catch(() => {}));
